@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using System.Text.Json;
 using Bicep.Core.Configuration;
 using Bicep.Core.Diagnostics;
+using Bicep.Core.Json;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -434,7 +434,7 @@ public class SecurityConfigurationTests
 
     private static SecurityConfiguration Bind(string json)
     {
-        var element = JsonDocument.Parse(json).RootElement;
+        var element = JsonElementFactory.CreateElement(json);
         return SecurityConfiguration.Bind(element);
     }
 

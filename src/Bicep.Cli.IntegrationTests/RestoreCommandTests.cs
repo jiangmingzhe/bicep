@@ -8,6 +8,7 @@ using Azure.Identity;
 using Bicep.Cli.UnitTests.Assertions;
 using Bicep.Core.Configuration;
 using Bicep.Core.Extensions;
+using Bicep.Core.Json;
 using Bicep.Core.Registry;
 using Bicep.Core.Registry.Oci;
 using Bicep.Core.Samples;
@@ -131,7 +132,7 @@ module mod 'br:mockregistry.io/test/foo:1.1' = {
                     .WithFileSystem(fileSystem)
                     .WithFileExplorer(fileExplorer)
                     .WithConfigurationPatch(c => c.With(security: SecurityConfiguration.Bind(
-                        System.Text.Json.JsonDocument.Parse("""{"trustedRegistries":["mockregistry.io"]}""").RootElement))),
+                        JsonElementFactory.CreateElement("""{ "trustedRegistries":["mockregistry.io"]}""")))),
                 ["restore",
                     "--pattern",
                     useRootPath ? $"{outputPath}/file*.bicep" : "file*.bicep"]);

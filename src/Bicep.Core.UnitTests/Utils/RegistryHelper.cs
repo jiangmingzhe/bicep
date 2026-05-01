@@ -6,6 +6,7 @@ using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using System.Text.Json;
+using Bicep.Core.Json;
 using Azure.Bicep.Types.Serialization;
 using Azure.Containers.ContainerRegistry;
 using Bicep.Core.Configuration;
@@ -140,8 +141,8 @@ public static class RegistryHelper
             : module.Registry.Contains(':')
                 ? module.Registry[..module.Registry.IndexOf(':')]      // "localhost:5000" → "localhost"
                 : module.Registry;
-        var publishSecurityJson = JsonDocument.Parse(
-            $"{{\"trustedRegistries\":[\"{registryHostOnly}\"]}}").RootElement;
+        var publishSecurityJson = JsonElementFactory.CreateElement(
+            $"{{\"trustedRegistries\":[\"{registryHostOnly}\"]}}");
 
         serviceBuilder = serviceBuilder
             .WithDisabledAnalyzersConfiguration()

@@ -72,7 +72,7 @@ namespace Bicep.Core.Registry
 
             // Security-first: if the registry is untrusted, always mark restore as required so that
             // RestoreArtifacts() will be called and can emit the appropriate diagnostic (BCP446).
-            var security = reference.ReferencingFile.Configuration.Security;
+            var security = reference.Configuration.Security;
             if (!security.IsRegistryTrusted(reference.Registry))
             {
                 return true;
@@ -215,7 +215,7 @@ namespace Bicep.Core.Registry
             // CONSIDER: Run these in parallel
             foreach (var reference in referencesEvaluated)
             {
-                var security = reference.ReferencingFile.Configuration.Security;
+                var security = reference.Configuration.Security;
 
                 // Block restore if the registry is not in the trusted list (BCP446).
                 // Invalid patterns in config are handled as warnings at config-load time (BCP447 via RootConfiguration)
