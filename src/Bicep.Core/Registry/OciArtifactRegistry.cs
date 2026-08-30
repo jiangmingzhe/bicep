@@ -77,7 +77,7 @@ namespace Bicep.Core.Registry
                         return new(x => x.OciArtifactModuleAliasMapToFilePathOnlySupportsModules(aliasName));
                     }
 
-                    if (referencingFile.LoadConfiguration().ConfigFileUri is not {} configFileUri)
+                    if (referencingFile.LoadConfiguration().ConfigFileUri is not { } configFileUri)
                     {
                         return new(x => x.ConfigurationFileNotFound("OciModuleAliasesMock"));
                     }
